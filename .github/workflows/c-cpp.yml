@@ -20,6 +20,6 @@ jobs:
       run: |
         mkdir _build
         export BUILD_PATH="$(realpath _build)"
-        ./configure --prefix=BUILD_PATH 
+        ./configure --prefix=$BUILD_PATH 
     - name: make
       run: make -C src/interfaces/libpq install
