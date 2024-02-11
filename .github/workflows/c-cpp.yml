@@ -1,0 +1,24 @@
+name: C/C++ CI
+
+on:
+  push:
+    branches: [ "REL_16_STABLE" ]
+  pull_request:
+    branches: [ "REL_16_STABLE" ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    env:
+      CFLAGS: "-std=c11 -static"
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: setup-dir
+      run: mkdir /_build
+    - name: configure
+      run: ./configure --prefix=/_build
+    - name: make
+      run: make -C src/interfaces/libpq install
