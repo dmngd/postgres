@@ -16,9 +16,7 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
-    - name: setup-dir
-      run: mkdir /_build
     - name: configure
-      run: ./configure --prefix=/_build
+      run: ./configure
     - name: make
       run: make -C src/interfaces/libpq install
