@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
-      CFLAGS: "-std=c11 -static"
+      CFLAGS: "-std=c11"
 
     steps:
     - uses: actions/checkout@v3
