@@ -9,7 +9,7 @@ on:
 jobs:
   build:
 
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
 
     env:
       CFLAGS: "-std=c11"
@@ -22,13 +22,21 @@ jobs:
         export BUILD_PATH="$(realpath _build)"
         ./configure --prefix=$BUILD_PATH 
     - name: make
-      run: make -C src/interfaces/libpq install
+      run: |
+        make -C src/port install
+        make -C src/include install
+        make -C src/common install
+        make -C src/interfaces/libpq install
+        rm -rf _build/lib/*.so
+        rm -rf _build/lib/*.so.*
+        tar -czf libpq-fe.tar.gz _build
+        rm -rf _build
     - name: upload
       uses: actions/upload-artifact@v4
       with:
-        path: |
-          _build
-          !path/**/*.so*
+        path: libpq-fe.tar.gz1
+          
+          
         
         
     
